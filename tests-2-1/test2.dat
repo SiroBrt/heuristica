@@ -1,0 +1,13 @@
+data;
+
+param n := 4;
+param m := 3;
+param kd := 1;
+param kp := 10;
+
+param: d    p :=
+  1   100   11
+  2   0     4
+  3   5     1;
+
+end;
