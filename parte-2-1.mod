@@ -18,6 +18,6 @@ solve;
 
 printf "\n\nSolution:\n";
 printf {i in 1..m, j in 1..n: x[i,j] == 1} "bus %i in slot %i\n", i, j;
-printf "\n";
+printf "loss = %i\n", loss;
 
 end;
