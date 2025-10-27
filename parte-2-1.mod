@@ -17,7 +17,8 @@ subject to aux: sum{i in 1..m} kp*p[i] = c;
 solve;
 
 printf "\n\nSolution:\n";
+printf "loss = %i, #variables = %i, #constraints = %i\n", loss, m*n, m+n+1;
 printf {i in 1..m, j in 1..n: x[i,j] == 1} "bus %i in slot %i\n", i, j;
-printf "loss = %i\n", loss;
+printf "all other buses are unassigned\n\n";
 
 end;
