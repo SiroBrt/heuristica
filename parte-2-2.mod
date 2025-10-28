@@ -21,9 +21,9 @@ subject to aux1: aux = sum{i in 1..m}(c[i,i]);
 
 solve;
 
-printf "\n\nSolution:\n";
+
+printf "passengers lost = %i, decision variables: %i, total constraints: %i\n", passengerslost, m*n*(m+u)+1, m+u*n+m*m*n+1;
 printf {i in 1..m, j in 1..u, k in 1..n: x[i,j, k] == 1} "bus %i in workshop %i at time %i\n", i, j,k;
-printf "passengers lost = %i\n\n", passengerslost;
 
 
 
