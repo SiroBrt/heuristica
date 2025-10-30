@@ -4,15 +4,20 @@ import math
 
 infile = sys.argv[1]
 
-n = 1
-m = 5
-u = 1
-while (n * u < m):
+m = n = u = 0
+try:
+    m = int(sys.argv[2])
+    n = int(sys.argv[3])
+    if (len(sys.argv) == 5):
+        u = int(sys.argv[4])
+except:
     m = int(input("numero de buses: "))
     n = int(input("numero de slots: "))
     u = int(input("numero de workshops: "))
-    if n * u < m:
-        print("nope\n")
+
+if n * u < m:
+    u = math.ceil(m / n)
+# print(f"bus = {m}, slots = {n}, workshops = {u}")
 
 c = []  # collisions
 o = []  # unavailable slots
