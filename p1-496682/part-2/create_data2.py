@@ -1,14 +1,14 @@
 import os
 # import math
 
-bus = [i + 1 for i in range(9)]
-slots = [i + 1 for i in range(9)]
+bus = [i + 1 for i in range(10)]
+slots = [i + 1 for i in range(10)]
 # workshops is automatically computed in problem_generator2.py
 print("buses: ", end=' ')
 print(bus)
 print("slots: ", end=' ')
 print(slots)
-tries = 1
+tries = 2
 times = []
 for i in bus:
     aux = []

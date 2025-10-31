@@ -26,7 +26,7 @@ for i in bus:
     times.append(aux)
 
 
-with open("data.csv", 'w') as f_d:
+with open("data1.csv", 'w') as f_d:
     f_d.write("bus slots time\n")
     for i in range(len(bus)):
         for j in range(len(slots)):
