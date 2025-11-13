@@ -2,7 +2,7 @@ import os
 # import math
 
 bus = [i + 1 for i in range(10)]
-slots = [i + 1 for i in range(10)]
+slots = [i + 1 for i in range(4)]
 # workshops is automatically computed in problem_generator2.py
 print("buses: ", end=' ')
 print(bus)
@@ -11,6 +11,7 @@ print(slots)
 tries = 2
 times = []
 for i in bus:
+    # print(f"#buses = {i}")
     aux = []
     for j in slots:
         t = 0
@@ -28,7 +29,7 @@ for i in bus:
             content = content[:content.find("secs")]
             t += float(content)
         aux.append(round(t / tries, 2))
-    print(aux)
+        # print(f"{aux[-1]} ")
     times.append(aux)
 
 
