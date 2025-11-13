@@ -22,13 +22,13 @@ def read_board(infile):
 
 
 def print_board(tablero, n, outfile):
-    with open(outfile, 'a') as f_dat:
-        f_dat.write("+" + "---+" * n + "\n")
+    with open(outfile, 'a') as f_out:
+        f_out.write("+" + "---+" * n + "\n")
         for i in range(n * n):
             if (i % n == 0) and (i != 0):
-                f_dat.write("|\n")
-            f_dat.write("| " + ("  " if tablero[i] == empty else ("x " if tablero[i] == cross else "o ")))
-        f_dat.write("|\n+" + "---+" * n + "\n")
+                f_out.write("|\n")
+            f_out.write("| " + ("  " if tablero[i] == empty else ("x " if tablero[i] == cross else "o ")))
+        f_out.write("|\n+" + "---+" * n + "\n")
 
 
 def variable_sum(*arg):
@@ -74,13 +74,13 @@ infile = sys.argv[1]
 outfile = sys.argv[2]
 tablero, n = read_board(infile)
 
-with open(outfile, 'w') as f_dat:  # clean output file
-    f_dat.write("")
+with open(outfile, 'w') as f_out:  # clean output file
+    f_out.write("")
 print_board(tablero, n, outfile)
 solution, num = solve_board(tablero, n)
 
-with open(outfile, 'a') as f_dat:  # clean output file
-    f_dat.write(str(num) + " solution" + ("" if num == 1 else "s") + " found\n")
+with open(outfile, 'a') as f_out:  # clean output file
+    f_out.write(str(num) + " solution" + ("" if num == 1 else "s") + " found\n")
 tablero_resuelto = transform_solution(solution)
 print_board(tablero_resuelto, n, outfile)
 
