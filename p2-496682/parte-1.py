@@ -31,20 +31,11 @@ def print_board(tablero, n, outfile):
         f_out.write("|\n+" + "---+" * n + "\n")
 
 
-def variable_sum(*arg):
-    result = 0
-    for i in arg:
-        print(i)
-        result += i
-    return result
-
-
 def solve_board(tablero, n):  # creates the problem for the given  board
     prob = constraint.Problem()
     for i in range(n * n):
         prob.addVariable(i, ([0, 1] if tablero[i] == empty else [tablero[i]]))
     for j in range(n):
-        # arreglar
         prob.addConstraint((lambda *arg: sum([i for i in arg]) == n / 2), [(i * n + j) for i in range(n)])  # sum of rows
         prob.addConstraint((lambda *arg: sum([i for i in arg]) == n / 2), [(i + n * j) for i in range(n)])  # sum of columns
 
@@ -80,10 +71,10 @@ print_board(tablero, n, outfile)
 solution, num = solve_board(tablero, n)
 
 with open(outfile, 'a') as f_out:  # clean output file
-    f_out.write(str(num) + " solution" + ("" if num == 1 else "s") + " found\n")
-tablero_resuelto = transform_solution(solution)
-print_board(tablero_resuelto, n, outfile)
+    f_out.write((str(num) if num != 0 else "no") + " solution" + ("" if num == 1 else "s") + " found\n")
+if num != 0:
+    tablero_resuelto = transform_solution(solution)
+    print_board(tablero_resuelto, n, outfile)
 
-# print(variable_sum(1, 2, 3, 4, 5, 6, 7, 8, 9))
 
 
