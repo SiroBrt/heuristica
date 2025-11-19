@@ -42,13 +42,9 @@ def solve_board(tablero, n):  # creates the problem for the given  board
         for i in range(n - 2):
             prob.addConstraint((lambda a, b, c: (b != a) or (b != c)), (i * n + j, (i + 1) * n + j, (i + 2) * n + j))  # no three equal vertically
             prob.addConstraint((lambda a, b, c: (b != a) or (b != c)), (i + n * j, (i + 1) + n * j, (i + 2) + n * j))  # no three equal horizontally
-    solutions = prob.getSolutions()
+    solution = prob.getSolution()
     # print(prob._constraints)
-    if (len(solutions) > 0):
-        final = solutions[0]
-    else:
-        final = None
-    return final, len(solutions)
+    return solution
 
 
 def transform_solution(solution):
@@ -68,13 +64,14 @@ tablero, n = read_board(infile)
 with open(outfile, 'w') as f_out:  # clean output file
     f_out.write("")
 print_board(tablero, n, outfile)
-solution, num = solve_board(tablero, n)
+solution = solve_board(tablero, n)
 
 with open(outfile, 'a') as f_out:  # clean output file
-    f_out.write((str(num) if num != 0 else "no") + " solution" + ("" if num == 1 else "s") + " found\n")
-if num != 0:
-    tablero_resuelto = transform_solution(solution)
-    print_board(tablero_resuelto, n, outfile)
+    if solution is None:
+        f_out.write("no solution found\n")
+    else:
+        tablero_resuelto = transform_solution(solution)
+        print_board(tablero_resuelto, n, outfile)
 
 
 
