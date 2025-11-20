@@ -22,6 +22,15 @@ def leer_tablero(infile):
     return tablero, n
 
 
+def show_tablero(tablero, n):
+    print("+" + "---+" * n)
+    for i in range(n * n):
+        if (i % n == 0) and (i != 0):
+            print("|")
+        print("| " + ("  " if tablero[i] == punto else ("x " if tablero[i] == cruz else "o ")), end='')
+    print("|\n+" + "---+" * n)
+
+
 def print_tablero(tablero, n, outfile):
     with open(outfile, 'a') as f_out:
         f_out.write("+" + "---+" * n + "\n")
@@ -40,6 +49,7 @@ def de_una(tablero, n):
         anterior = [tablero[i] for i in range(len(tablero))]
         two_in_a_row(tablero, n)
         same_number(tablero, n)
+    # show_tablero(tablero, n)
 
 
 def two_in_a_row(tablero, n):
@@ -164,5 +174,8 @@ with open(outfile, 'w') as f_out:
 tablero, n = leer_tablero(infile)
 
 print_tablero(tablero, n, outfile)
-print("done")
-dale(tablero, n, outfile)
+out = dale(tablero, n, outfile)
+if out == 1:
+    print("done")
+else:
+    print("no solution")
