@@ -4,7 +4,6 @@ import constraint
 empty = -1
 cross = 0
 circle = 1
-debug = 0
 
 
 def read_board(infile):
@@ -46,9 +45,10 @@ def solve_board(tablero, n):  # creates the problem for the given  board
     solution = prob.getSolution()
     # print(prob._constraints)
 
+    debug = 0
     if debug == 1:
         num = len(prob.getSolutions())
-        print(str(num) + " solution" + ("" if num == 1 else "s") + " found")
+        print(f"{num} solution" + + ("" if num == 1 else "s") + + " found")
 
     return solution
 
@@ -65,9 +65,6 @@ if len(sys.argv) < 3:
     exit(-1)
 infile = sys.argv[1]
 outfile = sys.argv[2]
-if len(sys.argv) > 3:
-    if sys.argv[3] == "-debug":
-        debug = 1
 tablero, n = read_board(infile)
 
 with open(outfile, 'w') as f_out:  # clean output file
