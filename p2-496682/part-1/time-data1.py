@@ -14,7 +14,7 @@ for i in sizes:
     aux = []
     t = 0
     for k in range(tries):
-        os.system(f"python problem_generator.py test.in {i}")
+        os.system(f"python problem-generator.py test.in {i}")
 
         initial = time.time()
         os.system("python parte-1.py test.in test.out")
@@ -22,4 +22,12 @@ for i in sizes:
         t += final - initial
     times.append(round(t / tries, 2))
     print(f"size: {i}, time: {times[-1]}")
+os.system("rm test.in test.out")
+
+
+with open("time.out", 'w') as f_out:
+    f_out.write("size\t time\n")
+    for i in range(len(sizes)):
+        f_out.write(f"{sizes[i]}\t {times[i]}s\n")
+
 print(times)

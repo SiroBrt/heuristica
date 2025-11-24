@@ -173,6 +173,7 @@ with open(outfile, 'w') as f_out:
     f_out.write("")
 tablero, n = leer_tablero(infile)
 
+de_una(tablero, n)
 print_tablero(tablero, n, outfile)
 out = dale(tablero, n, outfile)
 if out == 1:
