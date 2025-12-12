@@ -1,20 +1,16 @@
 class node:
-    def __init__(self, identifier):
+    # we don't really care for longitude or latitude for brute force, but we will use it for heuristic
+    def __init__(self, identifier, long, lat):
         self.id = identifier
-        self.connections = []
-    # we don't really care for longitude or latitude for the exercise
-    # def __init__(self, identifier, long, lat):
-    #     self.id = identifier
-    #     self.long = long
-    #     self.lat = lat
-    #     self.connections = []
+        self.long = long
+        self.lat = lat
+        self.connections = {}
 
     def __str__(self):
-        # return f"{self.id}: {self.lat}, {self.long}"
-        return str(self.id)
+        return f"{self.id}: {self.lat}, {self.long}"
 
     def connect(self, other, cost):
-        self.connections.append((other, cost))
+        self.connections[other] = cost
 
 
 class graph:
@@ -49,9 +45,8 @@ def read_graph_from(infile):
     for line in file:
         trim = line[2:-1]
         identifier, _, trim = trim.partition(" ")
-        # long, _, lat = trim.partition(" ")
-        # new_node = node(identifier, int(long), int(lat))
-        new_node = node(identifier)
+        long, _, lat = trim.partition(" ")
+        new_node = node(identifier, int(long), int(lat))
         g.insert_node(new_node)
         vertex_processed += 1
     file = open(infile + ".gr", 'r')
