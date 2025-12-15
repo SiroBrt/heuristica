@@ -34,4 +34,4 @@ def solve(start, goal, g, heuristica):
         n_id = l_close.elements[n_id].prev
     chain.append(n_id)
     chain.reverse()
-    return chain
+    return chain, len(l_close.elements)
