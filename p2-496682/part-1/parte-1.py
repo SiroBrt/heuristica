@@ -70,6 +70,9 @@ if len(sys.argv) > 3:
         debug = 1
 tablero, n = read_board(infile)
 
+if n % 2 != 0:
+    exit(-1)
+
 with open(outfile, 'w') as f_out:  # clean output file
     f_out.write("")
 print_board(tablero, n, outfile)

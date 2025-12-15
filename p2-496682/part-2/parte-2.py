@@ -1,6 +1,7 @@
 import sys
 import heapq
 import math
+import time
 # from grafo import read_graph_from
 # from grafo import graph
 # from abierta import heap_node
@@ -91,22 +92,46 @@ def straight_distance_heuristic(n, goal):
 
 
 def brute_force_heuristic(n, goal):
-    return 0
+    return 0 if n.id == goal.id else 1
 
 
-def solve_better(start, goal, g):
-    chain = [start, goal]
+def solve(start, goal, g, heuristica):
+    print("Solving")
+    l_open = open_list()
+    l_open.add(open_node(0, heuristica(start, end), start, start))
+    l_close = close_list()
+    while len(l_open.elements) > 0:
+        to_expand = l_open.get()
+        # print(f"opening ({to_expand})")
+        l_close.add(to_expand.cost, to_expand.graph_node, to_expand.prev)
+        if to_expand.graph_node.id == goal.id:
+            print(f"solution found with cost {to_expand.cost}")
+            break
+        for i in to_expand.graph_node.connections.keys():
+            hn = open_node(to_expand.graph_node.connections[i] + to_expand.cost, heuristica(to_expand.graph_node, goal), g.nodes[i], to_expand.graph_node)
+            l_open.add(hn)
+
+    # make chain from close_list
+    print("doing chain")
+    chain = []
+    n_id = goal.id
+    while n_id != start.id:
+        chain.append(n_id)
+        n_id = l_close.elements[n_id].prev
+    chain.append(n_id)
+    chain.reverse()
     return chain
+
+
 # ----------------------------------------------------------------
 # abierta.py
 # ----------------------------------------------------------------
-
-
-class heap_node:
-    def __init__(self, cost, h, n: node):
+class open_node:
+    def __init__(self, cost, h, n: node, prev: node):
         self.cost = cost
         self.heuristic_cost = h
         self.graph_node = n
+        self.prev = prev
 
     def __str__(self):
         return f"node: ({self.graph_node}), cost: {self.cost}, estimated distance to solution: {self.heuristic_cost}"
@@ -124,16 +149,42 @@ class heap_node:
 
 
 class open_list:
-    def __init__(self, g: graph):
+    def __init__(self):
         self.elements = []
         heapq.heapify(self.elements)  # key = node id, value = cost
-        self.graph = g
 
-    def add(self, n: heap_node):
+    def add(self, n: open_node):
         heapq.heappush(self.elements, n)
 
-# ----------------------------------------------------------------
+    def get(self):
+        return heapq.heappop(self.elements)
 
+
+# ----------------------------------------------------------------
+# cerrada.py
+# ----------------------------------------------------------------
+# We care about existence of node
+class closed_node:
+    def __init__(self, cost, n: node, previous_node: node):
+        self.id = n.id
+        self.prev = previous_node.id
+        self.cost = cost
+
+
+class close_list:
+    def __init__(self):
+        self.elements = {}
+
+    def add(self, cost, n: node, prev: node):
+        if n.id in self.elements.keys():
+            if cost < self.elements[n.id].cost:
+                self.elements[n.id].cost = cost
+                self.elements[n.id].prev = prev.id
+        else:
+            self.elements[n.id] = closed_node(cost, n, prev)
+
+
+# ----------------------------------------------------------------
 
 nodes_expanded = 0
 
@@ -155,9 +206,14 @@ g, vertex_processed, edges_processed = read_graph_from(infile)
 start = g.nodes[start_id]
 end = g.nodes[end_id]
 
-l1 = open_list(g)
-l1.add(heap_node(0, straight_distance_heuristic(start, end), start))
-l1.add(heap_node(straight_distance_heuristic(start, end), 0, end))
-for i in l1.elements:
-    print(i)
+t1 = time.time()
+chain = solve(start, end, g, straight_distance_heuristic)
+t2 = time.time()
+t_straight_line = t2 - t1
+print(f"path found through {chain}, t = {t_straight_line}sec")
 
+t1 = time.time()
+chain = solve(start, end, g, brute_force_heuristic)
+t2 = time.time()
+t_brute_force = t2 - t1
+print(f"path found through {chain}, t = {t_brute_force}sec")
