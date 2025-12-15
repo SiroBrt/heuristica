@@ -1,5 +1,6 @@
 from grafo import node
 import heapq
+import math
 
 
 class open_node:
@@ -25,8 +26,8 @@ class open_node:
 
 
 class open_list:
-    def __init__(self):
-        self.elements = []
+    def __init__(self, n: node):
+        self.elements = [open_node(0, math.inf, n, n)]
         heapq.heapify(self.elements)  # key = node id, value = cost
 
     def add(self, n: open_node):

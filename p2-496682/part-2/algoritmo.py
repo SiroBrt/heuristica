@@ -13,9 +13,7 @@ def brute_force_heuristic(n, goal):
 
 
 def solve(start, goal, g, heuristica):
-    print("Solving")
-    l_open = open_list()
-    l_open.add(open_node(0, heuristica(start, goal), start, start))
+    l_open = open_list(start)
     l_close = close_list()
     while len(l_open.elements) > 0:
         to_expand = l_open.get()
@@ -29,7 +27,6 @@ def solve(start, goal, g, heuristica):
             l_open.add(hn)
 
     # make chain from close_list
-    print("doing chain")
     chain = []
     n_id = goal.id
     while n_id != start.id:

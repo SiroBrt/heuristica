@@ -26,14 +26,16 @@ g, vertex_processed, edges_processed = read_graph_from(infile)
 start = g.nodes[start_id]
 end = g.nodes[end_id]
 
+print("straight distance heuristic")
 t1 = time.time()
 chain = solve(start, end, g, straight_distance_heuristic)
 t2 = time.time()
 t_straight_line = t2 - t1
-print(f"path found through {chain}, t = {t_straight_line}sec")
+print(f"path = {chain}, t = {t_straight_line}sec\n")
 
+print("brute force heuristic")
 t1 = time.time()
 chain = solve(start, end, g, brute_force_heuristic)
 t2 = time.time()
 t_brute_force = t2 - t1
-print(f"path found through {chain}, t = {t_brute_force}sec")
+print(f"path = {chain}, t = {t_brute_force}sec")
