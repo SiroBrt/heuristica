@@ -43,6 +43,9 @@ def read_graph_from(infile):
     g = graph()
     file = open(infile + ".co", 'r')
     for line in file:
+        # ignore comments
+        if line[0] != "v":
+            continue
         trim = line[2:-1]
         identifier, _, trim = trim.partition(" ")
         long, _, lat = trim.partition(" ")
@@ -51,6 +54,9 @@ def read_graph_from(infile):
         vertex_processed += 1
     file = open(infile + ".gr", 'r')
     for line in file:
+        # ignore comments
+        if line[0] != "a":
+            continue
         trim = line[2:-1]
         id1, _, trim = trim.partition(" ")
         id2, _, cost = trim.partition(" ")
@@ -59,5 +65,3 @@ def read_graph_from(infile):
             print(f"Unknown node: {id1}\nEnding program")
             exit(-1)
     return g, vertex_processed, edges_processed
-
-
