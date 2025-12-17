@@ -38,7 +38,7 @@ def solve(start, goal, g, heuristica, outfile):
         to_expand = l_open.get()
         l_close.add(to_expand.cost, to_expand.graph_node, to_expand.prev)
         if to_expand.graph_node.id == goal.id:
-            print(f"solution found with cost {to_expand.cost}")
+            # print(f"solution found with cost {to_expand.cost}")
             break
         for i in to_expand.graph_node.connections.keys():
             # already expanded?
