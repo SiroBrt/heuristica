@@ -9,7 +9,7 @@ def brute_force_heuristic(n, goal):
     return 0
 
 
-# in general not admisible because angles don't work like that
+# in general not useful because angles don't work like that
 def straight_distance_heuristic(n: node, goal: node):
     if n.id == goal.id:
         return 0
@@ -40,8 +40,6 @@ def solve(start, goal, g, heuristica, outfile, debug):
             if it == next_print:
                 next_print *= 2
                 print(f"{it} nodes expanded")
-
-        if debug:
             with open(outfile, 'a') as f_out:
                 f_out.write(f"\niteration {it}\n")
                 for i in l_open.elements:

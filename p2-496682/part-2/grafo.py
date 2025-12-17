@@ -5,7 +5,7 @@ class node:
     # we don't really care for longitude or latitude for brute force, but we will use it for heuristic
     def __init__(self, identifier, long, lat):
         self.id = identifier
-        self.long = long * math.pi / 180000000
+        self.long = long * math.pi / 180000000  # radianes
         self.lat = lat * math.pi / 180000000
         self.connections = {}
 
