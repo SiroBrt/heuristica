@@ -30,25 +30,12 @@ def curved_distance(n: node, goal: node):
     return math.floor(rad * c) * 10  # for some reason the cost is in decimeters so we can be more informed multiplying
 
 
-def solve(start, goal, g, heuristica, outfile, debug):
+def solve(start, goal, g, heuristica, outfile):
     l_open = open_list(start)
     l_close = close_list()
     it = 0
-    next_print = 1000
     while len(l_open.elements) > 0:
-        if debug:
-            if it == next_print:
-                next_print *= 2
-                print(f"{it} nodes expanded")
-            with open(outfile, 'a') as f_out:
-                f_out.write(f"\niteration {it}\n")
-                for i in l_open.elements:
-                    f_out.write(f"{i}\n")
-
-                to_expand = l_open.get()
-                f_out.write(f"opening ({to_expand})\n")
-        else:
-            to_expand = l_open.get()
+        to_expand = l_open.get()
         l_close.add(to_expand.cost, to_expand.graph_node, to_expand.prev)
         if to_expand.graph_node.id == goal.id:
             print(f"solution found with cost {to_expand.cost}")

@@ -17,10 +17,6 @@ start_id = sys.argv[1]
 end_id = sys.argv[2]
 infile = sys.argv[3]
 outfile = sys.argv[4]
-debug = 0
-if len(sys.argv) > 5:
-    if sys.argv[5] == "-debug":
-        debug = 1
 with open(outfile, 'w') as f_out:
     f_out.write("")
 
@@ -37,7 +33,7 @@ end = g.nodes[end_id]
 
 def run(start, end, heuristic):
     t1 = time.time()
-    chain, n_expanded = solve(start, end, g, heuristic, outfile, debug)
+    chain, n_expanded = solve(start, end, g, heuristic, outfile)
     t2 = time.time()
     t = round((t2 - t1) * 10**precision) / 10**precision
     # maybe print to file
