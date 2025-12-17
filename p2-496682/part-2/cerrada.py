@@ -11,7 +11,7 @@ class closed_node:
 
 class close_list:
     def __init__(self):
-        self.elements = {}
+        self.elements = {}  # id-> closed_node
 
     def add(self, cost, n: node, prev: node):
         if n.id in self.elements.keys():

@@ -1,6 +1,5 @@
 from grafo import node
 import heapq
-import math
 
 
 class open_node:
@@ -16,22 +15,29 @@ class open_node:
 # We care about most promising node
 # heap by heuristic+cost, tiebreaker is lowest h
     def __lt__(self, other):
-        if self.cost == other.cost:
+        if self.cost + self.heuristic_cost == other.cost + other.heuristic_cost:
             return self.heuristic_cost < other.heuristic_cost
         else:
-            return self.cost < other.cost
+            return self.cost + self.heuristic_cost < other.cost + other.heuristic_cost
 
     def __eq__(self, other):
-        return (self.cost == other.cost) and (self.heuristic_cost == other.heuristic_cost)
+        return (self.graph_node.id == other.graph_node.id)
 
 
 class open_list:
     def __init__(self, n: node):
-        self.elements = [open_node(0, math.inf, n, n)]
-        heapq.heapify(self.elements)  # key = node id, value = cost
+        self.elements = [open_node(0, 0, n, n)]
+        heapq.heapify(self.elements)
 
     def add(self, n: open_node):
-        heapq.heappush(self.elements, n)
+        if n not in self.elements:
+            heapq.heappush(self.elements, n)
+        else:
+            index = self.elements.index(n)
+            if self.elements[index].cost > n.cost:
+                self.elements[index] = n
+                heapq.heapify(self.elements)
+            # print("repe")
 
     def get(self):
         return heapq.heappop(self.elements)
