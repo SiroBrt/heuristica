@@ -12,7 +12,7 @@ outfile = sys.argv[2]
 df = pd.read_csv(infile)
 
 df.plot(kind='scatter', x='stepsToSolution', y='time')
-plt.savefig(outfile + "_steps.png")
+plt.savefig(outfile + "_time.png")
 
 df.plot(kind='scatter', x='stepsToSolution', y='nodesExpanded')
 plt.savefig(outfile + "_nodes.png")
