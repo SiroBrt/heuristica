@@ -11,8 +11,12 @@ outfile = sys.argv[2]
 
 df = pd.read_csv(infile)
 
-df.plot(kind='scatter', x='stepsToSolution', y='time')
+df.plot(kind='scatter', x='stepsToSolution', y='time', label=infile)
+plt.legend(loc='best')
+# plt.loglog()
 plt.savefig(outfile + "_time.png")
 
-df.plot(kind='scatter', x='stepsToSolution', y='nodesExpanded')
+df.plot(kind='scatter', x='stepsToSolution', y='nodesExpanded', label=infile)
+plt.legend(loc='best')
+# plt.loglog()
 plt.savefig(outfile + "_nodes.png")
