@@ -40,9 +40,6 @@ class test:
         self.time = t
         self.nodes = n
 
-    def __lt__(self, other):
-        return self.c < other.c
-
     def __str__(self):
         return f"{self.chain_length},{self.nodes},{self.time}"
 
